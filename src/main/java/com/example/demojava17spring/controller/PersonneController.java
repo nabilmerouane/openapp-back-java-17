@@ -10,7 +10,6 @@ import java.util.List;
 @RequestMapping("/api/personnes")
 public class PersonneController {
 
-
     private final PersonneService personneService;
 
     public PersonneController(PersonneService personneService) {
@@ -27,7 +26,7 @@ public class PersonneController {
         return personneService.getPersonne(id);
     }
 
-    @PostMapping("/personnes")
+    @PostMapping
     public Personne addPersonne(@RequestBody Personne personne) {
         return personneService.addPersonne(personne);
     }
