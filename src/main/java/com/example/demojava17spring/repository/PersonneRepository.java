@@ -3,5 +3,5 @@ package com.example.demojava17spring.repository;
 import com.example.demojava17spring.model.Personne;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PersonneRepository extends JpaRepository<Personne, Integer> {
-}
+/** Repository JPA pour l'accès aux données des personnes. */
+public interface PersonneRepository extends JpaRepository<Personne, Integer> {}

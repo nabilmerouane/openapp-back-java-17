@@ -8,16 +8,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/** Modèle de personne. */
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Personne {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    private String nom;
-    private String prenom;
+  private String nom;
+  private String prenom;
 }
