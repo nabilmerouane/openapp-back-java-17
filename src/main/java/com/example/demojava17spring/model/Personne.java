@@ -17,8 +17,13 @@ public class Personne {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
 
   private String nom;
   private String prenom;
+
+  public void modifier(String nom, String prenom) {
+    this.nom = nom;
+    this.prenom = prenom;
+  }
 }

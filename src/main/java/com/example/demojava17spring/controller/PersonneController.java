@@ -1,11 +1,14 @@
 package com.example.demojava17spring.controller;
 
-import com.example.demojava17spring.model.Personne;
+import com.example.demojava17spring.model.CreatePersonneRequest;
+import com.example.demojava17spring.model.PersonneResponse;
+import com.example.demojava17spring.model.UpdatePersonneRequest;
 import com.example.demojava17spring.service.PersonneService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +26,7 @@ public class PersonneController {
 
   /** Récupère toutes les personnes. */
   @GetMapping
-  public List<Personne> getPersonnes() {
+  public List<PersonneResponse> getPersonnes() {
     return personneService.getPersonnes();
   }
 
@@ -34,13 +37,31 @@ public class PersonneController {
    * @return la personne correspondante
    */
   @GetMapping("/{id}")
-  public Personne getPersonne(@PathVariable int id) {
+  public PersonneResponse getPersonne(@PathVariable Long id) {
     return personneService.getPersonne(id);
   }
 
-  /** Ajoute une personne. */
+  /**
+   * Ajoute une personne.
+   *
+   * @param request de création d'une personne
+   * @return la personne céée
+   */
   @PostMapping
-  public Personne addPersonne(@RequestBody Personne personne) {
-    return personneService.addPersonne(personne);
+  public PersonneResponse addPersonne(@RequestBody CreatePersonneRequest request) {
+    return personneService.addPersonne(request);
+  }
+
+  /**
+   * Modifie une personne.
+   *
+   * @param id d'une personne
+   * @param request d'update d'une personne
+   * @return la personne correspondante modifiée
+   */
+  @PutMapping("/{id}")
+  public PersonneResponse updatePersonne(
+      @PathVariable Long id, @RequestBody UpdatePersonneRequest request) {
+    return personneService.updatePersonne(id, request);
   }
 }
