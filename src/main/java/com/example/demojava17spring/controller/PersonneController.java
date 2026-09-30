@@ -1,9 +1,10 @@
 package com.example.demojava17spring.controller;
 
-import com.example.demojava17spring.model.CreatePersonneRequest;
-import com.example.demojava17spring.model.PersonneResponse;
-import com.example.demojava17spring.model.UpdatePersonneRequest;
+import com.example.demojava17spring.dto.CreatePersonneRequest;
+import com.example.demojava17spring.dto.PersonneResponse;
+import com.example.demojava17spring.dto.UpdatePersonneRequest;
 import com.example.demojava17spring.service.PersonneService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,7 @@ public class PersonneController {
    * @return la personne céée
    */
   @PostMapping
-  public PersonneResponse addPersonne(@RequestBody CreatePersonneRequest request) {
+  public PersonneResponse addPersonne(@Valid @RequestBody CreatePersonneRequest request) {
     return personneService.addPersonne(request);
   }
 
@@ -61,7 +62,7 @@ public class PersonneController {
    */
   @PutMapping("/{id}")
   public PersonneResponse updatePersonne(
-      @PathVariable Long id, @RequestBody UpdatePersonneRequest request) {
+      @PathVariable Long id, @Valid @RequestBody UpdatePersonneRequest request) {
     return personneService.updatePersonne(id, request);
   }
 }

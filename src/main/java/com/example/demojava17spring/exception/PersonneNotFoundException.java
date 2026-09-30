@@ -1,4 +1,4 @@
-package com.example.demojava17spring.service;
+package com.example.demojava17spring.exception;
 
 /** Gestion d'erreur si pas de personne trouvée en base. */
 public class PersonneNotFoundException extends RuntimeException {

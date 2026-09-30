@@ -1,9 +1,10 @@
 package com.example.demojava17spring.service;
 
-import com.example.demojava17spring.model.CreatePersonneRequest;
+import com.example.demojava17spring.dto.CreatePersonneRequest;
+import com.example.demojava17spring.dto.PersonneResponse;
+import com.example.demojava17spring.dto.UpdatePersonneRequest;
+import com.example.demojava17spring.exception.PersonneNotFoundException;
 import com.example.demojava17spring.model.Personne;
-import com.example.demojava17spring.model.PersonneResponse;
-import com.example.demojava17spring.model.UpdatePersonneRequest;
 import com.example.demojava17spring.repository.PersonneRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;

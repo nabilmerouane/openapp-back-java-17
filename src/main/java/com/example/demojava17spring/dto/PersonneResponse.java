@@ -1,4 +1,4 @@
-package com.example.demojava17spring.model;
+package com.example.demojava17spring.dto;
 
 /**
  * Objet requête de création d'une personne.
