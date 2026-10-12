@@ -10,9 +10,16 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/** Handler d'erreurs. */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+  /**
+   * Gestion erreur NotFound.
+   *
+   * @param ex exception
+   * @return erreur personne non trouvée dans le repository
+   */
   @ExceptionHandler(PersonneNotFoundException.class)
   public ProblemDetail handlePersonneNotFound(PersonneNotFoundException ex) {
     ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
@@ -20,6 +27,12 @@ public class GlobalExceptionHandler {
     return problem;
   }
 
+  /**
+   * Erreur dans les chanmps, invalides.
+   *
+   * @param ex exception
+   * @return erreur de validité des champs des fomulaires
+   */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ProblemDetail handleValidation(MethodArgumentNotValidException ex) {
     ProblemDetail problem =

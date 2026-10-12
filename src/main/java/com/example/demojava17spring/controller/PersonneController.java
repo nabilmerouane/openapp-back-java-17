@@ -6,6 +6,8 @@ import com.example.demojava17spring.dto.UpdatePersonneRequest;
 import com.example.demojava17spring.service.PersonneService;
 import jakarta.validation.Valid;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,5 +66,16 @@ public class PersonneController {
   public PersonneResponse updatePersonne(
       @PathVariable Long id, @Valid @RequestBody UpdatePersonneRequest request) {
     return personneService.updatePersonne(id, request);
+  }
+
+  /**
+   * Supprime une personne.
+   *
+   * @param id de la personne à supprimer
+   */
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deletePersonne(@PathVariable Long id) {
+    personneService.deletePersonne(id);
+    return ResponseEntity.noContent().build();
   }
 }

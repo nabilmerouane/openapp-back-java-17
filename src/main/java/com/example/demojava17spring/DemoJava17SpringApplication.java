@@ -15,4 +15,3 @@ public class DemoJava17SpringApplication {
     SpringApplication.run(DemoJava17SpringApplication.class, args);
   }
 }
-

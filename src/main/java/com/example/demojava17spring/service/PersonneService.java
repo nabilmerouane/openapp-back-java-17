@@ -87,4 +87,15 @@ public class PersonneService {
     return new PersonneResponse(
         updatedPersonne.getId(), updatedPersonne.getPrenom(), updatedPersonne.getNom());
   }
+
+  /**
+   * Supprime une personne.
+   *
+   * @param id de la personne à supprimer
+   */
+  public void deletePersonne(Long id) {
+    Personne personne =
+        personneRepository.findById(id).orElseThrow(() -> new PersonneNotFoundException(id));
+    personneRepository.delete(personne);
+  }
 }
