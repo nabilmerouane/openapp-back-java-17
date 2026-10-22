@@ -1,19 +1,26 @@
 package com.example.demojava17spring.service;
 
 import com.example.demojava17spring.dto.CreatePersonneRequest;
+import com.example.demojava17spring.dto.PageResponse;
 import com.example.demojava17spring.dto.PersonneResponse;
 import com.example.demojava17spring.dto.UpdatePersonneRequest;
+import com.example.demojava17spring.exception.InvalidSortException;
 import com.example.demojava17spring.exception.PersonneNotFoundException;
 import com.example.demojava17spring.model.Personne;
 import com.example.demojava17spring.repository.PersonneRepository;
-import java.util.List;
+import java.util.Set;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Service métier pour la gestion des personnes. */
 @Service
 public class PersonneService {
 
   private final PersonneRepository personneRepository;
+  public static final Set<String> SORTABLE_FIELDS = Set.of("id", "nom", "prenom");
 
   /**
    * Construit le service avec le repository de personnes.
@@ -27,14 +34,27 @@ public class PersonneService {
   /**
    * Récupère la liste de toutes les personnes.
    *
+   * @param pageable
    * @return toutes les personnes
    */
-  public List<PersonneResponse> getPersonnes() {
-    return personneRepository.findAll().stream()
-        .map(
-            personne ->
-                new PersonneResponse(personne.getId(), personne.getPrenom(), personne.getNom()))
-        .toList();
+  @Transactional(readOnly = true)
+  public PageResponse<PersonneResponse> getPersonnes(Pageable pageable) {
+    validateSort(pageable.getSort());
+    Pageable stable =
+        PageRequest.of(
+            pageable.getPageNumber(),
+            pageable.getPageSize(),
+            pageable.getSort().and(Sort.by("id")));
+    return PageResponse.from(personneRepository.findAll(stable).map(PersonneResponse::from));
+  }
+
+  private void validateSort(Sort sort) {
+    sort.forEach(
+        order -> {
+          if (!SORTABLE_FIELDS.contains(order.getProperty())) {
+            throw new InvalidSortException(order.getProperty());
+          }
+        });
   }
 
   /**

@@ -1,5 +1,6 @@
 package com.example.demojava17spring.exception;
 
+import com.example.demojava17spring.service.PersonneService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,6 +49,15 @@ public class GlobalExceptionHandler {
                     Collectors.mapping(FieldError::getDefaultMessage, Collectors.toList())));
 
     problem.setProperty("errors", errors);
+    return problem;
+  }
+
+  // GlobalExceptionHandler
+  @ExceptionHandler(InvalidSortException.class)
+  public ProblemDetail handleInvalidSort(InvalidSortException ex) {
+    ProblemDetail problem =
+        ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    problem.setProperty("allowedFields", PersonneService.SORTABLE_FIELDS);
     return problem;
   }
 }

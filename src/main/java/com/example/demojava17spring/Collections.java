@@ -77,7 +77,7 @@ public class Collections {
     System.out.println(nums.size()); // (M)
 
     for (Integer n : nums) {
-      if (n == 4) {
+      if (n == 3) {
         System.out.println(nums.remove(n));
         nums.remove(n);
       }

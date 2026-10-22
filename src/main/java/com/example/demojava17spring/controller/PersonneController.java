@@ -1,11 +1,15 @@
 package com.example.demojava17spring.controller;
 
 import com.example.demojava17spring.dto.CreatePersonneRequest;
+import com.example.demojava17spring.dto.PageResponse;
 import com.example.demojava17spring.dto.PersonneResponse;
 import com.example.demojava17spring.dto.UpdatePersonneRequest;
+import com.example.demojava17spring.repository.PersonneRepository;
 import com.example.demojava17spring.service.PersonneService;
 import jakarta.validation.Valid;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,18 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 /** Contrôleur REST pour la gestion des personnes. */
 @RestController
 @RequestMapping("/api/personnes")
+@RequiredArgsConstructor
 public class PersonneController {
 
   private final PersonneService personneService;
-
-  public PersonneController(PersonneService personneService) {
-    this.personneService = personneService;
-  }
+  private final PersonneRepository personneRepository;
 
   /** Récupère toutes les personnes. */
   @GetMapping
-  public List<PersonneResponse> getPersonnes() {
-    return personneService.getPersonnes();
+  public PageResponse<PersonneResponse> getPersonnes(
+      @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+    return personneService.getPersonnes(pageable);
   }
 
   /**
