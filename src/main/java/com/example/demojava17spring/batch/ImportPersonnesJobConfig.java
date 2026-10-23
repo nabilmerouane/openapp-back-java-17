@@ -3,6 +3,8 @@ package com.example.demojava17spring.batch;
 import com.example.demojava17spring.dto.PersonneCsv;
 import com.example.demojava17spring.model.Personne;
 import com.example.demojava17spring.repository.PersonneRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.job.parameters.RunIdIncrementer;
@@ -18,6 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class ImportPersonnesJobConfig {
+
+  private static final Logger log = LoggerFactory.getLogger(ImportPersonnesJobConfig.class);
 
   @Bean
   FlatFileItemReader<PersonneCsv> personneReader() {
