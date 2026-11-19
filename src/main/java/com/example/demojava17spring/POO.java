@@ -1,93 +1,52 @@
 package com.example.demojava17spring;
 
-class Parent {
-  String nom = "Parent";
+enum StatutCompte {
+  //    ACTIVE,
+  //    BLOKED,
+  //    CLOSED,
+  ACTIF("Compte actif"),
+  BLOQUE("Compte bloqué"),
+  FERME("Compte fermé");
 
-  String qui() {
-    return "Parent";
+  private final String libelle;
+
+  StatutCompte(String libelle) {
+    this.libelle = libelle;
+  }
+
+  public String getLibelle() {
+    return libelle;
   }
 }
 
-class Enfant extends Parent {
-  String nom = "Enfant";
+enum Operation {
+  ADDITION {
+    @Override
+    public int calculer(int a, int b) {
+      return a + b;
+    }
+  },
 
-  String qui() {
-    return "Enfant";
-  }
+  SOUSTRACTION {
+    @Override
+    public int calculer(int a, int b) {
+      return a - b;
+    }
+  },
 
-  void jouer() {
-    System.out.println("jouer");
-  }
-}
+  DIVISION;
 
-class Personne {
-  String prenom;
-
-  Personne(String prenom) {
-    this.prenom = prenom;
-  }
-  //
-  //    @Override
-  //    public boolean equals(Object obj) {
-  //        if (this == obj) {
-  //            return true;
-  //        }
-  //
-  //        if (!(obj instanceof Personne)) {
-  //            return false;
-  //        }
-  //
-  //        Personne autre = (Personne) obj;
-  //
-  //        return Objects.equals(this.prenom, autre.prenom);
-  //    }
-  //
-  //    @Override
-  //    public int hashCode() {
-  //        return Objects.hash(prenom);
-  //    }
-}
-
-class Counter {
-  private int count = 0;
-
-  public void increment() {
-    count++;
-    System.out.println(count);
-  }
-
-  public int getCount() {
-    return count;
+  //    public abstract int calculer(int a, int b);
+  public int calculer(int a, int b) {
+    return 0;
   }
 }
 
 public class POO {
   public static void main(String[] args) throws InterruptedException {
 
-    Counter c = new Counter();
-
-    Thread t1 =
-        new Thread(
-            () -> {
-              for (int i = 0; i < 1_000_000; i++) {
-                c.increment();
-              }
-            });
-
-    Thread t2 =
-        new Thread(
-            () -> {
-              for (int i = 0; i < 1_000_000; i++) {
-                c.increment();
-              }
-            });
-
-    t1.start();
-    t2.start();
-
-    t1.join();
-    t2.join();
-
-    System.out.println(c.getCount());
+    System.out.println(Operation.ADDITION.calculer(10, 5));
+    System.out.println(Operation.SOUSTRACTION.calculer(10, 5));
+    System.out.println(Operation.DIVISION.calculer(10, 5));
   }
 }

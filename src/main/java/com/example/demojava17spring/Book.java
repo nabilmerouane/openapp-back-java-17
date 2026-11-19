@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Book implements Serializable {
 
   private transient String description;
   private transient int copies;
+  private transient BigDecimal price;
 
   public static void serialize(Book book) throws Exception {
     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {

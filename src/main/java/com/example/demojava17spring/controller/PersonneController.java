@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,6 +55,7 @@ public class PersonneController {
    * @return la personne céée
    */
   @PostMapping
+  @PreAuthorize("hasAnyRole('ADMIN','DEVELOPER')")
   public PersonneResponse addPersonne(@Valid @RequestBody CreatePersonneRequest request) {
     return personneService.addPersonne(request);
   }
@@ -66,6 +68,7 @@ public class PersonneController {
    * @return la personne correspondante modifiée
    */
   @PutMapping("/{id}")
+  @PreAuthorize("hasAnyRole('ADMIN','DEVELOPER')")
   public PersonneResponse updatePersonne(
       @PathVariable Long id, @Valid @RequestBody UpdatePersonneRequest request) {
     return personneService.updatePersonne(id, request);
@@ -77,6 +80,7 @@ public class PersonneController {
    * @param id de la personne à supprimer
    */
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasAnyRole('ADMIN','DEVELOPER')")
   public ResponseEntity<Void> deletePersonne(@PathVariable Long id) {
     personneService.deletePersonne(id);
     return ResponseEntity.noContent().build();
