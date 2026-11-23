@@ -3,6 +3,7 @@ package com.example.demojava17spring.controller;
 import com.example.demojava17spring.dto.CreatePersonneRequest;
 import com.example.demojava17spring.dto.PageResponse;
 import com.example.demojava17spring.dto.PersonneResponse;
+import com.example.demojava17spring.dto.PersonneSearchCriteria;
 import com.example.demojava17spring.dto.UpdatePersonneRequest;
 import com.example.demojava17spring.repository.PersonneRepository;
 import com.example.demojava17spring.service.PersonneService;
@@ -30,12 +31,12 @@ public class PersonneController {
   private final PersonneService personneService;
   private final PersonneRepository personneRepository;
 
-  /** Récupère toutes les personnes. */
-  @GetMapping
-  public PageResponse<PersonneResponse> getPersonnes(
-      @PageableDefault(size = 20, sort = "id") Pageable pageable) {
-    return personneService.getPersonnes(pageable);
-  }
+//  /** Récupère toutes les personnes. */
+//  @GetMapping
+//  public PageResponse<PersonneResponse> getPersonnes(
+//      @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+//    return personneService.getPersonnes(pageable);
+//  }
 
   /**
    * Récupère une personne par son identifiant.
@@ -46,6 +47,21 @@ public class PersonneController {
   @GetMapping("/{id}")
   public PersonneResponse getPersonne(@PathVariable Long id) {
     return personneService.getPersonne(id);
+  }
+
+  /**
+   * Récupère une personne suivant le critère de recherche.
+   *
+   * @param criteria
+   * @param pageable
+   * @return la personne correspondante
+   */
+  @GetMapping
+  public PageResponse<PersonneResponse> getPersonnes(
+          PersonneSearchCriteria criteria,
+          @PageableDefault(size = 20, sort = "id") Pageable pageable) {
+
+    return personneService.getPersonnes(criteria, pageable);
   }
 
   /**
